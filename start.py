@@ -55,7 +55,7 @@ class App:
             # draw the triangle
             glBindVertexArray(self.triangle.vao)
             glUseProgram(self.shader)
-            glDrawArrays(GL_TRIANGLES, 0, self.triangle.vertex.count)
+            glDrawArrays(GL_TRIANGLES, 0, self.triangle.vertex_count)
 
             pg.display.flip()
 
