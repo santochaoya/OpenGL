@@ -1,27 +1,25 @@
-from subprocess import CompletedProcess
 import pygame as pg
 from OpenGL.GL import *
-import os
 import numpy as np
 from OpenGL.GL.shaders import compileProgram, compileShader
-
 
 class App:
 
     def __init__(self) -> None:
         
         pg.init()
-        os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (2700, 500)
-
+        pg.display.gl_set_attribute(pg.GL_CONTEXT_MAJOR_VERSION, 3)
+        pg.display.gl_set_attribute(pg.GL_CONTEXT_MINOR_VERSION, 3)
+        pg.display.gl_set_attribute(pg.GL_CONTEXT_PROFILE_MASK,
+                                    pg.GL_CONTEXT_PROFILE_CORE)
         pg.display.set_mode((640, 480), pg.OPENGL|pg.DOUBLEBUF)
-
         self.clock = pg.time.Clock()
 
         # initialize opengl
         glClearColor(0.1, 0.2, 0.2, 1)
 
         self.triangle = Triangle()
-        self.shader = self.createShader('shaders/vertex.txt', 'shaders/fragment.txt')
+        self.shader = self.createShader("shaders/vertex.txt", "shaders/fragment.txt")
         glUseProgram(self.shader)
 
         self.mainloop()
@@ -55,8 +53,8 @@ class App:
             glClear(GL_COLOR_BUFFER_BIT)
 
             # draw the triangle
-            glUseProgram(self.shader)
             glBindVertexArray(self.triangle.vao)
+            glUseProgram(self.shader)
             glDrawArrays(GL_TRIANGLES, 0, self.triangle.vertex.count)
 
             pg.display.flip()
@@ -66,7 +64,6 @@ class App:
         self.quit()
 
     def quit(self):
-
         self.triangle.destroy()
         glDeleteProgram(self.shader)
         pg.quit()
