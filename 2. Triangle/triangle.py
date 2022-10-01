@@ -19,7 +19,7 @@ class App:
         glClearColor(0.1, 0.2, 0.2, 1)
 
         self.triangle = Triangle()
-        self.shader = self.createShader("shaders/vertex.txt", "shaders/fragment.txt")
+        self.shader = self.createShader("2. Triangle/shaders/vertex.txt", "2. Triangle/shaders/fragment.txt")
         glUseProgram(self.shader)
 
         self.mainloop()
